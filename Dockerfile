@@ -23,23 +23,22 @@ COPY laravel.conf /opt
 RUN LC_ALL=C.UTF-8 add-apt-repository -y -u ppa:ondrej/php
 RUN apt-get update
 RUN apt-get install -y \
-			php7.1-fpm \
-			php7.1-cli \
-			php7.1-common \
-			php7.1-mbstring \
-			php7.1-gd \
-			php7.1-intl \
-			php7.1-xml \
+			php7.2-fpm \
+			php7.2-cli \
+			php7.2-common \
+			php7.2-mbstring \
+			php7.2-gd \
+			php7.2-intl \
+			php7.2-xml \
 			php7.1-mysql \
-			php7.1-pgsql \
-			php7.1-opcache \
-			php7.1-zip \
-			php7.1-dev \
-			php7.1-curl \
-			php7.1-sqlite3 \
-			php7.1-mcrypt
+			php7.2-pgsql \
+			php7.2-opcache \
+			php7.2-zip \
+			php7.2-dev \
+			php7.2-curl \
+			php7.2-sqlite3
 RUN mkdir -p /run/php
-RUN sed -i -- "s/;clear_env = no/clear_env = no/g" /etc/php/7.1/fpm/pool.d/www.conf
+RUN sed -i -- "s/;clear_env = no/clear_env = no/g" /etc/php/7.2/fpm/pool.d/www.conf
 
 # Install composer
 RUN cd /opt && curl -sS https://getcomposer.org/installer -o composer-setup.php && php composer-setup.php --install-dir=/usr/bin --filename=composer && rm composer-setup.php
@@ -57,6 +56,6 @@ RUN ["chmod", "+x", "/start.sh"]
 
 EXPOSE 80 443
 
-ENTRYPOINT php-fpm7.1 && /start.sh && bash
+ENTRYPOINT php-fpm7.2 && /start.sh && bash
 
 VOLUME ["/var/www"]
