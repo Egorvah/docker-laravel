@@ -30,7 +30,7 @@ RUN apt-get install -y \
 			php7.2-gd \
 			php7.2-intl \
 			php7.2-xml \
-			php7.1-mysql \
+			php7.2-mysql \
 			php7.2-pgsql \
 			php7.2-opcache \
 			php7.2-zip \
@@ -46,7 +46,7 @@ RUN cd /opt && curl -sS https://getcomposer.org/installer -o composer-setup.php 
 # Install nodejs
 RUN cd /opt && curl -sL https://deb.nodesource.com/setup_9.x | bash - && apt-get install -y nodejs
 RUN npm i -g n
-RUN npm i -g webpack
+RUN npm i -g webpack-cli
 RUN npm i -g gulp
 RUN npm i -g yarn
 
