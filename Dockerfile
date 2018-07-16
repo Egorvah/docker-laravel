@@ -38,7 +38,15 @@ RUN apt-get install -y \
 			php7.2-curl \
 			php7.2-sqlite3
 RUN mkdir -p /run/php
+
+# Update PHP config
 RUN sed -i -- "s/;clear_env = no/clear_env = no/g" /etc/php/7.2/fpm/pool.d/www.conf
+RUN sed -i -- "s/;listen.allowed_clients = 127.0.0.1/listen.allowed_clients = 127.0.0.1/g" /etc/php/7.2/fpm/pool.d/www.conf
+RUN sed -i -- "s/pm.start_servers = 2/pm.start_servers = 4/g" /etc/php/7.2/fpm/pool.d/www.conf
+RUN sed -i -- "s/pm.min_spare_servers = 1/pm.min_spare_servers = 4/g" /etc/php/7.2/fpm/pool.d/www.conf
+RUN sed -i -- "s/pm.max_spare_servers = 3/pm.max_spare_servers = 16/g" /etc/php/7.2/fpm/pool.d/www.conf
+RUN sed -i -- "s/pm.max_requests = 500/pm.max_requests = 1000/g" /etc/php/7.2/fpm/pool.d/www.conf
+RUN sed -i -- "s/pm.max_children = 5/pm.max_children = 128/g" /etc/php/7.2/fpm/pool.d/www.conf
 
 # Install composer
 RUN cd /opt && curl -sS https://getcomposer.org/installer -o composer-setup.php && php composer-setup.php --install-dir=/usr/bin --filename=composer && rm composer-setup.php
