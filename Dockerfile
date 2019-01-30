@@ -24,7 +24,7 @@ COPY laravel.conf /opt
 
 RUN apk add --no-cache postgresql-dev zlib-dev
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install opcache  mysqli pdo_mysql pgsql pdo_pgsql
+    && docker-php-ext-install opcache  mysqli pdo_mysql pgsql pdo_pgsql zip
 
 # Update PHP config
 RUN sed -i -- "s/;clear_env = no/clear_env = no/g" /usr/local/etc/php-fpm.d/www.conf
