@@ -8,5 +8,8 @@ echo -e "=== \tDocker container for laravel projects \t=== \n
 - PHP: \t\t$(php --version | head -n 1 | cut -d " " -f 2) \n
 - Composer: \t$(composer -V | head -n 1 | cut -d " " -f 3)"
 
-# Add environment domain to nginx config
-eval "sed -- \"s/{domain}/$DOMAIN/g\" /opt/laravel.conf > /etc/nginx/conf.d/laravel.conf && nginx"
+
+test -x /var/www/helper.sh && cd /var/www && ./helper.sh
+test -f /var/www/crontab && cp /var/www/crontab /var/spool/cron/crontabs/nobody && crond -L /var/log/crond.log
+
+chmod 777 /var/lib/php.sock
