@@ -1,6 +1,7 @@
 FROM php:7.4-fpm-alpine AS laravel
 MAINTAINER Egor Vakhrushev
 
+ENV DOMAIN=laravel
 ENV PHP_MEMORY_LIMIT 512M
 ENV MAX_UPLOAD 50M
 ENV PHP_MAX_FILE_UPLOAD 200
@@ -52,14 +53,16 @@ RUN mkdir -p /run/nginx/
 RUN touch /run/nginx/nginx.pid
 
 # Nginx config
-COPY laravel.conf /etc/nginx/conf.d/default.conf
+COPY laravel.conf /opt
 
 COPY start.sh /
 RUN ["chmod", "+x", "/start.sh"]
 
 EXPOSE 80 443
 
-ENTRYPOINT php-fpm -D && nginx && /start.sh && bash
+ENTRYPOINT php-fpm -D && /start.sh && bash
 
 RUN rm -rf /var/www/html
 WORKDIR /var/www
+
+VOLUME ["/var/www"]
