@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine AS laravel
+FROM php:7.4-fpm-alpine3.13 AS laravel
 MAINTAINER Egor Vakhrushev
 
 ENV DOMAIN=laravel
@@ -19,7 +19,8 @@ RUN apk update && apk upgrade && \
       	 unzip \
       	 libzip-dev \
       	 make \
-      	 freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev 
+      	 freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
+	 nodejs npm
 
 # Install PHP modules
 
